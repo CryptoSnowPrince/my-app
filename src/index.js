@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import ReactDOM from "react-dom/client";
 
 const App = () => {
   const [count, setCount] = useState(0);
   const [todos, setTodos] = useState([]);
-  const calculation = expensiveCalculation(count);
+  const calculation = useMemo(() => expensiveCalculation(count), [count]);
 
   const increment = () => {
     setCount((c) => c + 1);
@@ -38,10 +38,8 @@ const expensiveCalculation = (num) => {
   for (let i = 0; i < 1000000000; i++) {
     num += 1;
   }
-  console.log("Calculating end");
   return num;
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
-
